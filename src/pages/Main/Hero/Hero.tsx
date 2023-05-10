@@ -1,12 +1,16 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-  display: flex;
-`
+import Button from '@shared/Button';
+import { Container, Section } from '@styles/globals';
+import React from 'react';
 
 const Hero = () => {
-  return <Wrapper>Блок Hero</Wrapper>
-}
+	return (
+		<Section>
+			<Container>
+				<h1>Блок Hero</h1>
+				<Button />
+			</Container>
+		</Section>
+	);
+};
 
-export default Hero
+export default Hero;
