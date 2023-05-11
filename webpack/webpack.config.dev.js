@@ -1,6 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { createWebpackAliases } = require('./webpack.alias');
 
 module.exports = {
 	mode: 'development',
@@ -18,15 +19,7 @@ module.exports = {
 	resolve: {
 		// расширения файлов
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
-		alias: {
-			'@components': path.resolve(__dirname, '../src/components'),
-			'@models': path.resolve(__dirname, '../src/models'),
-			'@store': path.resolve(__dirname, '../src/store'),
-			'@shared': path.resolve(__dirname, '../src/shared'),
-			'@styles': path.resolve(__dirname, '../src/styles'),
-			'@pages': path.resolve(__dirname, '../src/pages'),
-			'@hooks': path.resolve(__dirname, '../src/hooks')
-		}
+		alias: createWebpackAliases()
 	},
 	stats: 'errors-warnings',
 	devtool: 'cheap-module-source-map',

@@ -1,15 +1,6 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { ErrorPage, Main, About } from './pages';
+import RoutesList from './routes';
 
-const App = () => {
-	return (
-		<Routes>
-			<Route path="/" element={<Main />} />
-			<Route path="/about" element={<About />} />
-			<Route path="*" element={<ErrorPage />} />
-		</Routes>
-	);
-};
+const App = () => <RoutesList />;
 
 export default App;

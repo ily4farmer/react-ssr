@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { createWebpackAliases } = require('./webpack.alias');
 
 module.exports = {
 	mode: 'production',
@@ -20,15 +21,7 @@ module.exports = {
 	resolve: {
 		// расширения файлов
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
-		alias: {
-			'@components': path.resolve(__dirname, '../src/components'),
-			'@models': path.resolve(__dirname, '../src/models'),
-			'@store': path.resolve(__dirname, '../src/store'),
-			'@shared': path.resolve(__dirname, '../src/shared'),
-			'@styles': path.resolve(__dirname, '../src/styles'),
-			'@pages': path.resolve(__dirname, '../src/pages'),
-			'@hooks': path.resolve(__dirname, '../src/hooks')
-		}
+		alias: createWebpackAliases()
 	},
 	stats: 'errors-warnings',
 	optimization: {
