@@ -1,7 +1,5 @@
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ReactRefreshTypeScript from 'react-refresh-typescript';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
@@ -29,12 +27,23 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
           test: /\.tsx?$/,
           use: [
             {
-              loader: 'ts-loader',
+              loader: 'babel-loader',
               options: {
-                getCustomTransformers: () => ({
-                  before: [ReactRefreshTypeScript()],
-                }),
-                transpileOnly: true,
+                plugins: [
+                  // '@babel/plugin-transform-typescript',
+                  // '@babel/plugin-transform-react-jsx-development',
+                  // 'react-refresh/babel',
+                ],
+                presets: [
+                  '@babel/preset-env',
+                  [
+                    '@babel/preset-react',
+                    {
+                      runtime: 'automatic',
+                    },
+                  ],
+                  '@babel/preset-typescript',
+                ],
               },
             },
           ],
@@ -47,7 +56,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
       path: options.paths.output,
     },
     plugins: [
-      new ReactRefreshWebpackPlugin(),
+      // new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
       new HtmlWebpackPlugin({ template: options.paths.html }),
       new webpack.ProgressPlugin(),
