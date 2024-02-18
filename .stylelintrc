@@ -1,0 +1,28 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "plugins": ["stylelint-prettier"],
+  "rules": {
+    "scss/at-mixin-pattern": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "scss/dollar-variable-pattern": null,
+    "no-duplicate-selectors": [null, { "disallowInList": false }],
+    "selector-class-pattern": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "no-descending-specificity": null,
+    "prettier/prettier": [
+      true,
+      {
+        "printWidth": 100,
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "all"
+      }
+    ]
+  }
+}
