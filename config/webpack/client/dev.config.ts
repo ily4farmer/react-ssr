@@ -1,33 +1,23 @@
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import ReactRefreshTypeScript from 'react-refresh-typescript';
 import webpack from 'webpack';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 import { BuildOptions } from '../types';
 
-
 export default function devConfig(options: BuildOptions): webpack.Configuration {
   return {
-    mode: 'development',
-    entry: options.paths.entry,
-    output: {
-      path: options.paths.output,
-      filename: '[contenthash].js',
-      clean: true,
-    },
-    devtool: 'inline-source-map',
     devServer: {
-      port: options.port,
-      open: true,
       historyApiFallback: true,
-    },
-    plugins: [
-      new HtmlWebpackPlugin({ template: options.paths.html }),
-      new webpack.ProgressPlugin(),
-    ],
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-    },
-
+      hot: true,
+      open: true,
+      port: options.port,
+    } as DevServerConfiguration,
+    devtool: 'inline-source-map',
+    entry: options.paths.entry,
+    mode: 'development',
     module: {
       rules: [
         {
@@ -35,11 +25,36 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
           use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
           exclude: /node_modules/,
+          test: /\.tsx?$/,
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                getCustomTransformers: () => ({
+                  before: [ReactRefreshTypeScript()],
+                }),
+                transpileOnly: true,
+              },
+            },
+          ],
         },
       ],
+    },
+    output: {
+      clean: true,
+      filename: '[contenthash].js',
+      path: options.paths.output,
+    },
+    plugins: [
+      new ReactRefreshWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin(),
+      new HtmlWebpackPlugin({ template: options.paths.html }),
+      new webpack.ProgressPlugin(),
+    ],
+
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
     },
   };
 }
