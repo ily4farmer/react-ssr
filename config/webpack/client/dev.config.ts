@@ -1,3 +1,4 @@
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
@@ -31,8 +32,8 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
               options: {
                 plugins: [
                   // '@babel/plugin-transform-typescript',
-                  // '@babel/plugin-transform-react-jsx-development',
-                  // 'react-refresh/babel',
+                  '@babel/plugin-transform-react-jsx-development',
+                  'react-refresh/babel',
                 ],
                 presets: [
                   '@babel/preset-env',
@@ -52,11 +53,11 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
     },
     output: {
       clean: true,
-      filename: '[contenthash].js',
+      filename: '[name].js',
       path: options.paths.output,
     },
     plugins: [
-      // new ReactRefreshWebpackPlugin(),
+      new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
       new HtmlWebpackPlugin({ template: options.paths.html }),
       new webpack.ProgressPlugin(),

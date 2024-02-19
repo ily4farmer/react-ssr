@@ -19,13 +19,28 @@ export default function prodConfig(options: BuildOptions): webpack.Configuration
         {
           exclude: /node_modules/,
           test: /\.tsx?$/,
-          use: 'ts-loader',
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                plugins: [
+                  '@babel/plugin-transform-typescript',
+                  '@babel/plugin-transform-react-jsx-source',
+                ],
+                presets: [
+                  '@babel/preset-env',
+                  ['@babel/preset-react', { runtime: 'automatic' }],
+                  '@babel/preset-typescript',
+                ],
+              },
+            },
+          ],
         },
       ],
     },
     output: {
       clean: true,
-      filename: '[name].[contenthash].js',
+      filename: '[contenthash].js',
       path: options.paths.output,
     },
     plugins: [
