@@ -14,7 +14,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
       open: true,
       port: options.port,
     } as DevServerConfiguration,
-    devtool: 'inline-source-map',
+    devtool: 'eval',
     entry: options.paths.entry,
     mode: 'development',
     module: {
@@ -30,11 +30,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
             {
               loader: 'babel-loader',
               options: {
-                plugins: [
-                  // '@babel/plugin-transform-typescript',
-                  '@babel/plugin-transform-react-jsx-development',
-                  'react-refresh/babel',
-                ],
+                plugins: ['@babel/plugin-transform-react-jsx-development', 'react-refresh/babel'],
                 presets: [
                   '@babel/preset-env',
                   [

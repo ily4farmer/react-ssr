@@ -11,7 +11,7 @@ export const App = () => {
     <div>
       <div>{count}</div>
       <button type="button" onClick={onClickHandler}>
-        fdаfdsfds
+        fdа
       </button>
     </div>
   );

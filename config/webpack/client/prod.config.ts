@@ -8,6 +8,7 @@ import { BuildOptions } from '../types';
 
 export default function prodConfig(options: BuildOptions): webpack.Configuration {
   return {
+    devtool: 'source-map',
     entry: options.paths.entry,
     mode: 'production',
     module: {
