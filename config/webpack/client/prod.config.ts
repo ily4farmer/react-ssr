@@ -1,3 +1,4 @@
+import CompressionPlugin from 'compression-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -45,6 +46,7 @@ export default function prodConfig(options: BuildOptions): webpack.Configuration
       path: options.paths.output,
     },
     plugins: [
+      new CompressionPlugin(),
       new ForkTsCheckerWebpackPlugin(),
       new MiniCssExtractPlugin({
         chunkFilename: 'css/[name].[contenthash:8].css',
@@ -56,6 +58,7 @@ export default function prodConfig(options: BuildOptions): webpack.Configuration
 
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      modules: ['src', 'node_modules'],
     },
   };
 }

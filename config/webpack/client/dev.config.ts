@@ -15,7 +15,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
       port: options.port,
     } as DevServerConfiguration,
     devtool: 'eval',
-    entry: options.paths.entry,
+    entry: ['webpack-hot-middleware/client', options.paths.entry],
     mode: 'development',
     module: {
       rules: [
@@ -61,6 +61,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
 
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      modules: ['src', 'node_modules'],
     },
   };
 }
