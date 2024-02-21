@@ -1,7 +1,7 @@
 import path from 'path';
 
 import devConfig from './config/webpack/client/dev.config';
-import prodConfig from './config/webpack/client/prod.config';
+import serverConfig from './config/webpack/server/server.config';
 import { BuildPaths } from './config/webpack/types';
 
 type Mode = 'development' | 'production';
@@ -16,23 +16,18 @@ export default (env: EnvVariables) => {
   const paths: BuildPaths = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     html: path.resolve(__dirname, 'public', 'index.html'),
-    output: path.resolve(__dirname, 'build'),
+    output: path.resolve(__dirname, 'build', 'client'),
   };
 
-  if (env.mode === 'development') {
-    return devConfig({
+  return [
+    devConfig({
       paths,
       port: 3000,
-    });
-  }
-
-  if (env.mode === 'production') {
-    return prodConfig({
-      analyzer: env.analyzer,
-      paths,
-      port: 3000,
-    });
-  }
-
-  return false;
+    }),
+    serverConfig({
+      entry: path.resolve(__dirname, 'src', 'server.ts'),
+      mode: env.mode,
+      output: path.resolve(__dirname, 'build', 'server'),
+    }),
+  ];
 };

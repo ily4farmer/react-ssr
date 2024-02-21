@@ -55,7 +55,11 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
     plugins: [
       new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
-      new HtmlWebpackPlugin({ template: options.paths.html }),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        inject: 'body',
+        template: options.paths.html,
+      }),
       new webpack.ProgressPlugin(),
     ],
 

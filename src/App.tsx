@@ -1,18 +1,8 @@
-import './App.scss';
+import { Count } from './Count';
 
-import { useState } from 'react';
-
-export const App = () => {
-  const [count, setCount] = useState<number>(0);
-
-  const onClickHandler = () => setCount((prev) => prev + 1);
-
-  return (
-    <div>
-      <div>{count}</div>
-      <button type="button" onClick={onClickHandler}>
-        fdа
-      </button>
-    </div>
-  );
-};
+export const App = () => (
+  <div>
+    <h1>Хуй</h1>
+    <Count />
+  </div>
+);
