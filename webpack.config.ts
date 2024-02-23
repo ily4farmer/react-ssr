@@ -25,7 +25,7 @@ export default (env: EnvVariables) => {
       port: 3000,
     }),
     serverConfig({
-      entry: path.resolve(__dirname, 'src', 'server.ts'),
+      entry: path.resolve(__dirname, 'src', 'server.tsx'),
       mode: env.mode,
       output: path.resolve(__dirname, 'build', 'server'),
     }),

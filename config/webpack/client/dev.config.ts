@@ -1,6 +1,5 @@
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
@@ -52,18 +51,17 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
     },
     output: {
       clean: true,
-      filename: '[contenthash].js',
+      filename: '[name].js',
       path: options.paths.output,
-      // publicPath: 'auto',
     },
     plugins: [
       new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        inject: 'body',
-        template: options.paths.html,
-      }),
+      // new HtmlWebpackPlugin({
+      //   filename: 'index.html',
+      //   inject: 'body',
+      //   template: options.paths.html,
+      // }),
       // new webpack.HotModuleReplacementPlugin(),
       new webpack.ProgressPlugin(),
     ],
