@@ -1,13 +1,12 @@
 import CompressionPlugin from 'compression-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import { BuildOptions } from '../types';
 
-export default function prodConfig(options: BuildOptions): webpack.Configuration {
+export default function clientProdConfig(options: BuildOptions): webpack.Configuration {
   return {
     devtool: 'source-map',
     entry: options.paths.entry,
@@ -42,17 +41,16 @@ export default function prodConfig(options: BuildOptions): webpack.Configuration
     },
     output: {
       clean: true,
-      filename: '[contenthash].js',
+      filename: '[name].js',
       path: options.paths.output,
     },
     plugins: [
-      new CompressionPlugin(),
+      new CompressionPlugin({ algorithm: 'gzip' }),
       new ForkTsCheckerWebpackPlugin(),
       new MiniCssExtractPlugin({
         chunkFilename: 'css/[name].[contenthash:8].css',
         filename: 'css/[name].[contenthash:8].css',
       }),
-      new HtmlWebpackPlugin({ template: options.paths.html }),
       new webpack.ProgressPlugin(),
     ].concat(Boolean(options.analyzer) && new BundleAnalyzerPlugin()),
 

@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import { renderToString } from 'react-dom/server';
 
-import { App } from './App';
+import { App } from '../client/App';
 
 const appContent = renderToString(<App />);
 

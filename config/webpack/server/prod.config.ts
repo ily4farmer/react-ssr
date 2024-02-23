@@ -3,11 +3,11 @@ import webpackNodeExternals from 'webpack-node-externals';
 
 import { BuildPaths } from '../types';
 
-const devServerConfig = (options: BuildPaths): Configuration => ({
+const prodServerConfig = (options: BuildPaths): Configuration => ({
   devtool: 'source-map',
   entry: options.entry,
   externals: webpackNodeExternals(),
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -41,11 +41,12 @@ const devServerConfig = (options: BuildPaths): Configuration => ({
     ],
   },
   name: 'server',
-  optimization: { nodeEnv: false },
+  optimization: { nodeEnv: 'production', removeEmptyChunks: true },
 
   output: {
     clean: true,
     filename: 'server.js',
+    libraryTarget: 'commonjs2',
     path: options.output,
   },
 
@@ -57,4 +58,4 @@ const devServerConfig = (options: BuildPaths): Configuration => ({
   target: 'node',
 });
 
-export default devServerConfig;
+export default prodServerConfig;

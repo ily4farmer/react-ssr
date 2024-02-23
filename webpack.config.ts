@@ -1,33 +1,49 @@
 import path from 'path';
 
-import devConfig from './config/webpack/client/dev.config';
-import serverConfig from './config/webpack/server/server.config';
-import { BuildPaths } from './config/webpack/types';
-
-type Mode = 'development' | 'production';
+import devClientConfig from './config/webpack/client/dev.config';
+import clientProdConfig from './config/webpack/client/prod.config';
+import prodServerConfig from './config/webpack/server/prod.config';
+import devServerConfig from './config/webpack/server/server.config';
+import { BuildMode, BuildPaths } from './config/webpack/types';
 
 type EnvVariables = {
   analyzer?: boolean;
-  mode?: Mode;
+  mode?: BuildMode;
   port?: number;
 };
 
 export default (env: EnvVariables) => {
-  const paths: BuildPaths = {
-    entry: path.resolve(__dirname, 'src', 'index.tsx'),
-    html: path.resolve(__dirname, 'public', 'index.html'),
+  const pathsClient: BuildPaths = {
+    entry: path.resolve(__dirname, 'src', 'client', 'index.tsx'),
     output: path.resolve(__dirname, 'build', 'client'),
   };
 
-  return [
-    devConfig({
-      paths,
-      port: 3000,
-    }),
-    serverConfig({
-      entry: path.resolve(__dirname, 'src', 'server.tsx'),
-      mode: env.mode,
-      output: path.resolve(__dirname, 'build', 'server'),
-    }),
-  ];
+  const pathsServer: BuildPaths = {
+    entry: path.resolve(__dirname, 'src', 'server', 'server.tsx'),
+    output: path.resolve(__dirname, 'build', 'server'),
+  };
+
+  if (env.mode === 'development') {
+    return [
+      devClientConfig({
+        paths: pathsClient,
+        port: 3000,
+      }),
+      devServerConfig({
+        ...pathsServer,
+      }),
+    ];
+  }
+
+  if (env.mode === 'production') {
+    return [
+      clientProdConfig({
+        paths: pathsClient,
+        port: 3000,
+      }),
+      prodServerConfig({
+        ...pathsServer,
+      }),
+    ];
+  }
 };

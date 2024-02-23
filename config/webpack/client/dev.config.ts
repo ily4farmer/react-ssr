@@ -5,7 +5,7 @@ import type { Configuration as DevServerConfiguration } from 'webpack-dev-server
 
 import { BuildOptions } from '../types';
 
-export default function devConfig(options: BuildOptions): webpack.Configuration {
+export default function devClientConfig(options: BuildOptions): webpack.Configuration {
   return {
     devServer: {
       historyApiFallback: true,
@@ -14,10 +14,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
       port: options.port,
     } as DevServerConfiguration,
     devtool: 'eval',
-    entry: [
-      // 'webpack-hot-middleware/client',
-      options.paths.entry,
-    ],
+    entry: [options.paths.entry],
     mode: 'development',
     module: {
       rules: [
@@ -57,12 +54,6 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
     plugins: [
       new ReactRefreshWebpackPlugin(),
       new ForkTsCheckerWebpackPlugin(),
-      // new HtmlWebpackPlugin({
-      //   filename: 'index.html',
-      //   inject: 'body',
-      //   template: options.paths.html,
-      // }),
-      // new webpack.HotModuleReplacementPlugin(),
       new webpack.ProgressPlugin(),
     ],
 

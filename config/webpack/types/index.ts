@@ -1,13 +1,12 @@
 export type BuildPaths = {
-    entry: string;
-    output: string;
-    html: string;
-}
+  entry: string;
+  output: string;
+};
 
 export type BuildMode = 'production' | 'development';
 
 export type BuildOptions = {
-    paths: BuildPaths;
-    port: number;
-    analyzer?:boolean
-}
+  analyzer?: boolean;
+  paths: BuildPaths;
+  port: number;
+};
