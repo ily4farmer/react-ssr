@@ -54,6 +54,7 @@ const serverConfig = (options: TServerConfig): Configuration => ({
     filename: 'server.js',
     // libraryTarget: 'commonjs2',
     path: options.output,
+    // publicPath: 'auto',
   },
 
   // performance: {

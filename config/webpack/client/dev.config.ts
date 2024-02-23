@@ -10,12 +10,15 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
   return {
     devServer: {
       historyApiFallback: true,
-      hot: true,
+      hot: false,
       open: true,
       port: options.port,
     } as DevServerConfiguration,
     devtool: 'eval',
-    entry: ['webpack-hot-middleware/client', options.paths.entry],
+    entry: [
+      // 'webpack-hot-middleware/client',
+      options.paths.entry,
+    ],
     mode: 'development',
     module: {
       rules: [
@@ -49,8 +52,9 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
     },
     output: {
       clean: true,
-      filename: '[name].js',
+      filename: '[contenthash].js',
       path: options.paths.output,
+      // publicPath: 'auto',
     },
     plugins: [
       new ReactRefreshWebpackPlugin(),
@@ -60,6 +64,7 @@ export default function devConfig(options: BuildOptions): webpack.Configuration 
         inject: 'body',
         template: options.paths.html,
       }),
+      // new webpack.HotModuleReplacementPlugin(),
       new webpack.ProgressPlugin(),
     ],
 

@@ -7,8 +7,6 @@ export const Count = () => {
     setCount((prev) => prev + 1);
   };
 
-  console.log('2432432');
-
   return (
     <div>
       <div>{count}</div>
