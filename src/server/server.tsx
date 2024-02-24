@@ -1,29 +1,43 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
-import { renderToString } from 'react-dom/server';
+import { StrictMode } from 'react';
+import { renderToPipeableStream } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom/server';
 
 import { App } from '../client/App';
-
-const appContent = renderToString(<App />);
 
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../', 'client')));
 
 app.get('/*', (req: Request, res: Response) => {
-  const html = `
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <title>My React App</title>
-    </head>
-    <body>
-      <div id="root">${appContent}</div>
-      <script src="main.js"></script>
-    </body>
-  </html>
-`;
-  res.send(html);
+  const { pipe } = renderToPipeableStream(
+    <StrictMode>
+      <StaticRouter location={req.url}>
+        <App />
+      </StaticRouter>
+    </StrictMode>,
+    {
+      bootstrapScripts: ['main.js'],
+      onShellError(err) {
+        res.statusCode = 500;
+        res.send(err);
+      },
+      onShellReady() {
+        res.statusCode = 200;
+        res.setHeader('Content-type', 'text/html');
+        // Убедитесь, что в HTML-разметке есть элемент с id="root"
+        res.write(
+          '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>My React App</title></head><body><div id="root">',
+        );
+        pipe(res);
+        res.on('finish', () => {
+          res.write('</body></html>');
+          res.end();
+        });
+      },
+    },
+  );
 });
 
 app.listen(9001, () => {

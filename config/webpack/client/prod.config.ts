@@ -53,10 +53,11 @@ export default function clientProdConfig(options: BuildOptions): webpack.Configu
       }),
       new webpack.ProgressPlugin(),
     ].concat(Boolean(options.analyzer) && new BundleAnalyzerPlugin()),
-
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       modules: ['src', 'node_modules'],
     },
+
+    target: 'web',
   };
 }

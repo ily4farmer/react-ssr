@@ -56,10 +56,11 @@ export default function devClientConfig(options: BuildOptions): webpack.Configur
       new ForkTsCheckerWebpackPlugin(),
       new webpack.ProgressPlugin(),
     ],
-
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
       modules: ['src', 'node_modules'],
     },
+
+    target: 'web',
   };
 }

@@ -1,4 +1,6 @@
+import { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
 
@@ -8,4 +10,11 @@ if (!root) {
   throw Error('not find root');
 }
 
-hydrateRoot(root, <App />);
+hydrateRoot(
+  root,
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+);
