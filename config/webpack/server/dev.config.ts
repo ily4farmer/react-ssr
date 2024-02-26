@@ -1,6 +1,7 @@
 import { Configuration } from 'webpack';
 import webpackNodeExternals from 'webpack-node-externals';
 
+import { resolve } from '../modules/resolve';
 import { BuildPaths } from '../types';
 
 const devServerConfig = (options: BuildPaths): Configuration => ({
@@ -49,10 +50,7 @@ const devServerConfig = (options: BuildPaths): Configuration => ({
     path: options.output,
   },
 
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-    modules: ['src', 'node_modules'],
-  },
+  resolve: resolve(options.src),
 
   target: 'node',
 });

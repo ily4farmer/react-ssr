@@ -1,5 +1,4 @@
-import { About } from '../pages/About';
-import { Home } from '../pages/Home';
+import { About, Home } from '~pages';
 
 type TRoute = {
   Component: React.LazyExoticComponent<() => JSX.Element>;

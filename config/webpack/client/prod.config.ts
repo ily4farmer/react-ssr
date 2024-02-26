@@ -4,6 +4,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
+import { resolve } from '../modules/resolve';
 import { BuildOptions } from '../types';
 
 export default function clientProdConfig(options: BuildOptions): webpack.Configuration {
@@ -53,11 +54,7 @@ export default function clientProdConfig(options: BuildOptions): webpack.Configu
       }),
       new webpack.ProgressPlugin(),
     ].concat(Boolean(options.analyzer) && new BundleAnalyzerPlugin()),
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-      modules: ['src', 'node_modules'],
-    },
-
+    resolve: resolve(options.paths.src),
     target: 'web',
   };
 }

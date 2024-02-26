@@ -3,6 +3,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
+import { resolve } from '../modules/resolve';
 import { BuildOptions } from '../types';
 
 export default function devClientConfig(options: BuildOptions): webpack.Configuration {
@@ -56,10 +57,7 @@ export default function devClientConfig(options: BuildOptions): webpack.Configur
       new ForkTsCheckerWebpackPlugin(),
       new webpack.ProgressPlugin(),
     ],
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-      modules: ['src', 'node_modules'],
-    },
+    resolve: resolve(options.paths.src),
 
     target: 'web',
   };

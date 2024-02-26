@@ -86,7 +86,7 @@
     "import/newline-after-import": "error",
     "import/no-duplicates": "off",
     "import/no-extraneous-dependencies": "off",
-    "import/no-unresolved": "error",
+    "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "import/order": "off",
     "jsx-a11y/anchor-is-valid": "off",

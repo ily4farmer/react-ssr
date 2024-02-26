@@ -1,6 +1,7 @@
 export type BuildPaths = {
   entry: string;
   output: string;
+  src: string;
 };
 
 export type BuildMode = 'production' | 'development';

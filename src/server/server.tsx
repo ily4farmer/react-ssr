@@ -26,7 +26,6 @@ app.get('/*', (req: Request, res: Response) => {
       onShellReady() {
         res.statusCode = 200;
         res.setHeader('Content-type', 'text/html');
-        // Убедитесь, что в HTML-разметке есть элемент с id="root"
         res.write(
           '<!DOCTYPE html><html><head><meta charset="utf-8" /><title>My React App</title></head><body><div id="root">',
         );

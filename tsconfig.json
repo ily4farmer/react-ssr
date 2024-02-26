@@ -6,9 +6,26 @@
     "target": "es5",
     "jsx": "react-jsx",
     "allowJs": true,
+    "baseUrl": "./",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "~pages": ["src/client/pages"],
+      "~pages*": ["src/client/pages*"],
+      "~features": ["src/client/features"],
+      "~features*": ["src/client/features*"],
+      "~routes": ["src/client/routes"],
+      "~routes*": ["src/client/routes*"],
+      "~services": ["src/client/services"],
+      "~services*": ["src/client/services*"],
+      "~shared": ["src/client/shared"],
+      "~shared*": ["src/client/shared*"],
+      "~store": ["src/client/store"],
+      "~store*": ["src/client/store*"],
+      "~utils": ["src/client/utils"],
+      "~utils*": ["src/client/utils*"]
+    }
   },
   "ts-node": {
     "compilerOptions": {
