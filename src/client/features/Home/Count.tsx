@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { increment, useAppDispatch, useAppSelector } from '~store';
 
 export const Count = () => {
-  const [count, setCount] = useState<number>(0);
+  const dispatch = useAppDispatch();
+  const count = useAppSelector((state) => state.counter.value);
 
   const onClickHandler = () => {
-    setCount((prev) => prev + 1);
+    dispatch(increment());
   };
 
   return (
     <div>
       <div>{count}</div>
       <button type="button" onClick={onClickHandler}>
-        fdаghfghgf54365465
+        fdаgh
       </button>
     </div>
   );

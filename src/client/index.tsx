@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
+import { store } from '~store';
 
 import { App } from './App';
 
@@ -10,11 +13,16 @@ if (!root) {
   throw Error('not find root');
 }
 
+// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/no-explicit-any
+delete (window as any).__PRELOADED_STATE__;
+
 hydrateRoot(
   root,
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 );
