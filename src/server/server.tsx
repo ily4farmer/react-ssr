@@ -15,9 +15,11 @@ app.use(express.static(path.resolve(__dirname, '../', 'client')));
 app.get('/*', (req: Request, res: Response) => {
   const { pipe } = renderToPipeableStream(
     <Provider store={store}>
+      {/* <ChakraProvider> */}
       <StaticRouter location={req.url}>
         <App />
       </StaticRouter>
+      {/* </ChakraProvider> */}
     </Provider>,
     {
       bootstrapScripts: ['main.js'],

@@ -12,7 +12,7 @@ export const Count = () => {
     <div>
       <div>{count}</div>
       <button type="button" onClick={onClickHandler}>
-        fdаgh
+        Button
       </button>
     </div>
   );

@@ -20,9 +20,11 @@ hydrateRoot(
   root,
   <StrictMode>
     <Provider store={store}>
+      {/* <ChakraProvider> */}
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      {/* </ChakraProvider> */}
     </Provider>
   </StrictMode>,
 );
